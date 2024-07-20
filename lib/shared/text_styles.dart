@@ -3,7 +3,9 @@ import 'package:myquran/shared/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 extension TextStyleExtension on TextStyle {
+  TextStyle get text => copyWith(color: textPrim);
   TextStyle get black => copyWith(color: blackColor);
+  TextStyle get grey => copyWith(color: greyColor);
   TextStyle get white => copyWith(color: whiteColor);
   TextStyle get danger => copyWith(color: redColor);
   TextStyle get info => copyWith(color: infoColor);
@@ -38,6 +40,9 @@ TextStyle mega = GoogleFonts.openSans().copyWith(
 );
 TextStyle extra = GoogleFonts.openSans().copyWith(
   fontSize: extraSize,
+);
+TextStyle xLarge = GoogleFonts.openSans().copyWith(
+  fontSize: xLargeSize,
 );
 TextStyle mass = GoogleFonts.openSans().copyWith(
   fontSize: massSize,

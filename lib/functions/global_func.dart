@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 dynamic nullChecker(dynamic check) {
   if (check == null) return null;
@@ -51,6 +52,25 @@ BoxShadow getBoxShadow(double show) {
     blurRadius: show,
     offset: Offset(0, show)
   );
+}
+
+Future<SharedPreferences> prefs() async {
+  return await SharedPreferences.getInstance();
+}
+
+void setStringPref(key, value) async {
+  var pref = await prefs();
+  pref.setString(key, value);
+}
+
+Future<Object?> getStringPref(key) async {
+  var pref = await prefs();
+  return await pref.get(key);
+}
+
+void removeStringPref(key) async {
+  var pref = await prefs();
+  pref.remove(key);
 }
 
 void showGLobalAlert(type, text, context) {
@@ -128,12 +148,7 @@ void showConfirm(BuildContext context, String confirm, Function onYes, onCancel)
   });
 }
 
-void goToPage(BuildContext context, page, add) {
-  var route = page;
-  if (add) {
-    route = page(add);
-  }
-
+void goToPage(BuildContext context, route) {
   Navigator.push(
     context,
     MaterialPageRoute(

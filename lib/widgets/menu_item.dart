@@ -20,8 +20,8 @@ class MenuItemCustom extends StatelessWidget {
     String getIcon() {
       if (icon == 'home') {
         return active ? 'ic_home_active.png' : 'ic_home.png';
-      } else if (icon == 'category') {
-        return active ? 'ic_category_active.png' : 'ic_category.png';
+      } else if (icon == 'bookmark') {
+        return active ? 'ic_bookmark_active.png' : 'ic_bookmark.png';
       } else {
         return active ? 'ic_home_active.png' : 'ic_home.png';
       }
@@ -34,8 +34,8 @@ class MenuItemCustom extends StatelessWidget {
     String getMenuTitle() {
       if (icon == 'home') {
         return 'Home';
-      } else if (icon == 'category') {
-        return 'Category';
+      } else if (icon == 'bookmark') {
+        return 'Bookmark';
       } else {
         return 'Home';
       }
