@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myquran/blocs/cubits/current_read_cubit.dart';
+import 'package:myquran/blocs/cubits/get_surah_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
+import 'package:myquran/models/get_surah_response_model.dart';
 import 'package:myquran/screens/detail_pages/surah_detail_page/surah_detail_page.dart';
+import 'package:myquran/screens/main_pages/tabs/home_tab/last_read.dart';
+import 'package:myquran/screens/main_pages/tabs/home_tab/surah_gap.dart';
+import 'package:myquran/screens/search_pages/search_page.dart';
 import 'package:myquran/shared/constants.dart';
-import 'package:myquran/shared/text_styles.dart';
+import 'package:myquran/view_models/main_page/home_view_model.dart';
 import 'package:myquran/widgets/header_custom.dart';
-import 'package:myquran/widgets/image_custom.dart';
+import 'package:myquran/widgets/retry_fetch.dart';
 import 'package:myquran/widgets/surah_card.dart';
 
 class HomeTab extends StatefulWidget {
@@ -15,6 +22,14 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  late HomeViewModel homeVM = HomeViewModel(context);
+
+  @override
+  void initState() {
+    super.initState();
+    homeVM.getSurahData();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget HeaderContent() {
@@ -25,114 +40,72 @@ class _HomeTabState extends State<HomeTab> {
         ),
         child: HeaderCustom(
           title: "Home",
-          onSearch: (){},
+          onSearch: () => goToPage(context, SearchPage()),
         ),
       );
     }
 
-    Widget LastReadContent() {
+    Widget SurahLoading() {
       return Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                ImageCustom(
-                  height: 20,
-                  width: 20,
-                  image: AssetImage(getIC("ic-last-read.png")),
-                ),
-                SizedBox(width: 8),
-                Text(
-                  "Last read",
-                  style: regular.white.mediumF,
-                )
-              ],
-            ),
-            Spacer(),
-            Text(
-              "Al-Fatihah",
-              style: large.white.semiBold,
-            ),
-            SizedBox(width: 4),
-            Text(
-              "Ayat No: 1",
-              style: regular.white.regularF,
-            )
-          ],
+        height: 350,
+        child: Center(
+          child: CircularProgressIndicator(
+            color: primary,
+          ),
         ),
-      );
+      ); 
     }
 
-    Widget LastRead() {
+    Widget SurahFailed() {
       return Container(
-        width: double.infinity,
-        margin: EdgeInsets.only(
-          left: 24,
-          right: 24,
-          bottom: 32
+        height: 350,
+        child: Center(
+          child: RetryFetch(
+            title: "Failed to get surah data",
+            onRefetch: () => homeVM.getSurahData(),
+          ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Asslamualaikum",
-              style: large.grey.mediumF,
-            ),
-            SizedBox(height: 4),
-            ImageCustom(
-              width: double.infinity,
-              height: 131,
-              image: AssetImage(getIM("bg-last-read.png")),
-              fit: BoxFit.cover,
-              borderRadius: BorderRadius.circular(10),
-              child: LastReadContent(),
-            )
-          ],
-        ),
-      );
+      ); 
     }
 
-    Widget SurahGap() {
-      return Container(
-        child: Column(
-          children: [
-            Text(
-              "Surah",
-              style: medium.prim.semiBold,
-            ),
-            SizedBox(height: 16,),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 24
-              ),
-              height: 2,
-              width: double.infinity,
-              color: primary,
-            )
-          ],
-        ),
-      );
-    }
-
-    Widget SurahList() {
-      return Container(
-        margin: EdgeInsets.only(
+    Widget SurahList(GetSurahResponseModel surahs) {
+      return ListView.builder(
+        padding: EdgeInsets.only(
           left: 16,
           right: 16,
-          top: 8
+          top: 8,
+          bottom: 124,
         ),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () => goToPage(context, SurahDetailPage()),
-              child: SurahCard()
-            ),
-            SurahCard(),
-            SurahCard(),
-          ],
-        ),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: surahs.data!.length,
+        itemBuilder: (context, index) {
+          var surah = surahs.data![index];
+          var current = CurrentReadModel(surah, 1);
+          return SurahCard(
+            surah: surah,
+            onPress: () {
+              homeVM.setCurrentRead(current);
+              goToPage(context, SurahDetailPage(surah));
+            },
+          );
+        }
+      );
+    }
+
+    Widget SurahContent() {
+      return BlocConsumer<GetSurahCubit, GetSurahState>(
+        listener: (context, state) {
+          if (state is GetSurahFailed) {
+            showGLobalAlert("danger", "Failed to get surah data", context);
+          }
+        },
+        builder: (context, state) {
+          if (state is GetSurahLoading) return SurahLoading();
+          if (state is GetSurahFailed) return SurahFailed();
+          if (state is GetSurahSuccess) return SurahList(state.surahs);
+          return Container();
+        },
       );
     }
 
@@ -144,7 +117,7 @@ class _HomeTabState extends State<HomeTab> {
             HeaderContent(),
             LastRead(),
             SurahGap(),
-            SurahList()
+            SurahContent()
           ],
         ),
       ),

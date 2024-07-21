@@ -17,11 +17,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
   Widget build(BuildContext context) {
     void onGetStarted() async {
       setStringPref("isStarted", "true");
-      Navigator.pushNamedAndRemoveUntil(
-        context, 
-        "/main",
-        (route) => false,
-      );
+      navReplace(context, "/main");
     }
 
     Widget TopText() {

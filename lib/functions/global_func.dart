@@ -161,3 +161,11 @@ void goToPage(BuildContext context, route) {
     ),
   );
 }
+
+void navReplace(BuildContext context, String path) {
+  Navigator.pushNamedAndRemoveUntil(
+    context, 
+    path,
+    (route) => false,
+  );
+}

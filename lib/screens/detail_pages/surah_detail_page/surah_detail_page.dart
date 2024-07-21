@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:myquran/functions/global_func.dart';
+import 'package:myquran/models/get_surah_response_model.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/widgets/ayat_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/widgets/image_custom.dart';
 
+// ignore: must_be_immutable
 class SurahDetailPage extends StatefulWidget {
-  const SurahDetailPage({super.key});
+  Data surah;
+  SurahDetailPage(this.surah);
 
   @override
   State<SurahDetailPage> createState() => _SurahDetailPageState();
@@ -25,6 +28,9 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         child: HeaderCustom(
           backAble: true,
           title: "Al-Fatihah",
+          onSearch: () => {
+            Navigator.pushNamed(context, "/search")
+          },
         ),
       );
     }

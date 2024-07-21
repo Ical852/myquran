@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myquran/screens/search_pages/search_page.dart';
 import 'package:myquran/widgets/bookmar_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
+import 'package:myquran/functions/global_func.dart';
 
 class BookmarkTab extends StatefulWidget {
   const BookmarkTab({super.key});
@@ -20,7 +22,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
         ),
         child: HeaderCustom(
           title: "Bookmarks",
-          onSearch: (){},
+          onSearch: () => goToPage(context, SearchPage()),
         ),
       );
     }

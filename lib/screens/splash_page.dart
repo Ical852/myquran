@@ -21,12 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     Timer(Duration(seconds: 2), () async {
       var isStarted = await getStringPref("isStarted");
       var route = isNotNull(isStarted) ? "/main" : "/get-started";
-
-      Navigator.pushNamedAndRemoveUntil(
-        context, 
-        route,
-        (route) => false,
-      );
+      navReplace(context, route);
     });
   }
 
