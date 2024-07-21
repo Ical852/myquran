@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/get_detail_surah_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/models/get_detail_surah_response_model.dart';
@@ -37,7 +38,8 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
   void initState() {
     super.initState();
     detailVM.getDetailSurah(this.widget.surah.nomor!);
-    _playerStateSubscription = player.onPlayerStateChanged.listen((PlayerState state) {
+    _playerStateSubscription =
+        player.onPlayerStateChanged.listen((PlayerState state) {
       setState(() {
         _playerState = state;
       });
@@ -63,6 +65,28 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
   Widget build(BuildContext context) {
     var surah = this.widget.surah;
 
+    void playHandler(String audio) async {
+      if (currentPlay == audio) {
+        setState(() {
+          loading = currentPlay;
+        });
+        await player.stop();
+        setState(() {
+          loading = "";
+          currentPlay = "";
+        });
+      } else {
+        setState(() {
+          loading = audio;
+          currentPlay = audio;
+        });
+        await player.play(UrlSource(audio));
+        setState(() {
+          loading = "";
+        });
+      }
+    }
+
     Widget HeaderContent() {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -77,46 +101,29 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
     }
 
     Widget AyatList(Data data) {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 32,
-          left: 24,
-          right:24
-        ),
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: data.jumlahAyat,
-          itemBuilder: (context, index) {
-            var ayat = data.ayat![index];
-            return AyatCard(
-              ayat: ayat,
-              currentPlay: currentPlay,
-              loading: loading,
-              onPlay: (audio) async {
-                if (currentPlay == audio) {
-                  setState(() {
-                    loading = currentPlay;
-                  });
-                  await player.stop();
-                  setState(() {
-                    loading = "";
-                    currentPlay = "";
-                  });
-                } else {
-                  setState(() {
-                    loading = audio;
-                    currentPlay = audio;
-                  });
-                  await player.play(UrlSource(audio));
-                  setState(() {
-                    loading = "";
-                  });
-                }
-              },
-            );
-          }
-        )
+      return BlocConsumer<BookmarkAyatCubit, List<Ayat>>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Container(
+            margin: EdgeInsets.only(top: 32, left: 24, right: 24),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: data.jumlahAyat,
+              itemBuilder: (context, index) {
+                var ayat = data.ayat![index];
+                return AyatCard(
+                  ayat: ayat,
+                  currentPlay: currentPlay,
+                  loading: loading,
+                  onPlay: (audio) => playHandler(audio),
+                  onBookmark: () => {},
+                  isBookmarked: false,
+                );
+              }
+            )
+          );
+        },
       );
     }
 
@@ -138,9 +145,8 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         height: double.infinity,
         child: Center(
           child: RetryFetch(
-            title: "Failed to get detail surah data",
-            onRefetch: () => detailVM.getDetailSurah(surah.nomor!)
-          ),
+              title: "Failed to get detail surah data",
+              onRefetch: () => detailVM.getDetailSurah(surah.nomor!)),
         ),
       );
     }
@@ -168,13 +174,15 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
           child: BlocConsumer<GetDetailSurahCubit, GetDetailSurahState>(
             listener: (context, state) {
               if (state is GetDetailSurahFailed) {
-                showGLobalAlert("danger", "Failed to get detail surah data", context);
+                showGLobalAlert(
+                    "danger", "Failed to get detail surah data", context);
               }
             },
             builder: (context, state) {
               if (state is GetDetailSurahLoading) return DetailLoading();
               if (state is GetDetailSurahFailed) return DetailFailed();
-              if (state is GetDetailSurahSuccess) return DetailContent(state.detail);
+              if (state is GetDetailSurahSuccess)
+                return DetailContent(state.detail);
               return Container();
             },
           ),

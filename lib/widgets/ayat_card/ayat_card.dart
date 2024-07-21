@@ -10,6 +10,8 @@ class AyatCard extends StatefulWidget {
   String currentPlay = "";
   String loading = "";
   Function(String) onPlay;
+  Function() onBookmark;
+  bool isBookmarked;
 
   AyatCard({
     super.key,
@@ -17,6 +19,8 @@ class AyatCard extends StatefulWidget {
     required this.currentPlay,
     required this.loading,
     required this.onPlay,
+    required this.onBookmark,
+    this.isBookmarked = false,
   });
 
   @override
@@ -69,8 +73,8 @@ class _AyatCardState extends State<AyatCard> {
               audioOpen = !audioOpen;
             }),
             onPlay: () => this.widget.onPlay(ayat.audio!.s01!),
-            onBookmark: (){},
-            isBookmarked: false,
+            onBookmark: this.widget.onBookmark,
+            isBookmarked: this.widget.isBookmarked,
             audioList: AudioList(),
           ),
           AyatContent(ayat: ayat)

@@ -28,4 +28,13 @@ class BookmarkAyatCubit extends Cubit<List<Ayat>> {
       return false;
     }
   }
+
+  bool isExist(Ayat ayat) {
+    try {
+      var find = state.firstWhere((ayat) => ayat == ayat, orElse: null);
+      return ayat.teksArab == find.teksArab;
+    } catch (e) {
+      return false;
+    }
+  }
 }

@@ -40,7 +40,7 @@ class _HomeTabState extends State<HomeTab> {
         ),
         child: HeaderCustom(
           title: "Home",
-          onSearch: () => goToPage(context, SearchPage()),
+          onSearch: () => {},
         ),
       );
     }
