@@ -73,7 +73,7 @@ class SearchInput extends StatelessWidget {
                       margin: EdgeInsets.only(right: 16),
                       width: 24,
                       height: 24,
-                      image: AssetImage(getIC("ic_search.png")),
+                      image: AssetImage(getIC("ic-search-page.png")),
                     ),
                   )
                 ],

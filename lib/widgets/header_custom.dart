@@ -21,9 +21,10 @@ class HeaderCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var rightIcon = this.icon != null ? this.icon : "ic-search.png";
+    
     Widget LeftContent() {
-      var icon = this.icon != null ? this.icon : backAble ? "ic-back.png" : "ic-bar.png";
-
+      var icon = backAble ? "ic-back.png" : "ic-bar.png";
       return GestureDetector(
         onTap: (){
           if (backAble) {
@@ -34,7 +35,7 @@ class HeaderCustom extends StatelessWidget {
         child: ImageCustom(
           height: backAble ? 26 : 24,
           width: backAble ? 26 : 24,
-          image: AssetImage(getIC(icon!)),
+          image: AssetImage(getIC(icon)),
         ),
       );
     }
@@ -60,7 +61,7 @@ class HeaderCustom extends StatelessWidget {
             child: ImageCustom(
               height: 24,
               width: 24,
-              image: AssetImage(getIC("ic-search.png")),
+              image: AssetImage(getIC(rightIcon!)),
             ),
           )
         ],

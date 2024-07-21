@@ -10,7 +10,7 @@ import 'package:myquran/blocs/cubits/get_tafsir_surah_cubit.dart';
 import 'package:myquran/blocs/cubits/page_cubit.dart';
 import 'package:myquran/screens/get_started_page.dart';
 import 'package:myquran/screens/main_pages/main_page.dart';
-import 'package:myquran/screens/search_pages/search_page.dart';
+import 'package:myquran/screens/search_pages/search_page/search_page.dart';
 import 'package:myquran/screens/splash_page.dart';
 import 'package:myquran/shared/constants.dart';
 

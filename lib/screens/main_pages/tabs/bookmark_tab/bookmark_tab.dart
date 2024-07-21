@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myquran/screens/search_pages/search_page.dart';
+import 'package:myquran/screens/search_pages/search_page/search_page.dart';
 import 'package:myquran/widgets/bookmar_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/functions/global_func.dart';

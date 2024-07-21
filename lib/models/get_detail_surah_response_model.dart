@@ -75,7 +75,7 @@ class Data {
     suratSelanjutnya = isNotNull(json['suratSelanjutnya'])
       ? new SuratSelanjutnya.fromJson(json['suratSelanjutnya'])
       : null;
-    suratSebelumnya = json['suratSebelumnya'];
+    suratSebelumnya = json['suratSebelumnya'] is bool ? json['suratSebelumnya'] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -132,6 +132,10 @@ class AudioFull {
     data['04'] = this.s04;
     data['05'] = this.s05;
     return data;
+  }
+
+  List<String?> toList() {
+    return [s01, s02, s03, s04, s05];
   }
 }
 

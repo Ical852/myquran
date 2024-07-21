@@ -14,9 +14,7 @@ class SurahGap extends StatelessWidget {
             "Surah",
             style: medium.prim.semiBold,
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 24),
             height: 2,
