@@ -19,11 +19,11 @@ class MenuItemCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     String getIcon() {
       if (icon == 'home') {
-        return active ? 'ic_home_active.png' : 'ic_home.png';
+        return active ? 'ic-home-active.png' : 'ic-home.png';
       } else if (icon == 'bookmark') {
-        return active ? 'ic_bookmark_active.png' : 'ic_bookmark.png';
+        return active ? 'ic-bookmark-active.png' : 'ic-bookmark.png';
       } else {
-        return active ? 'ic_home_active.png' : 'ic_home.png';
+        return active ? 'ic-home-active.png' : 'ic-home.png';
       }
     }
 

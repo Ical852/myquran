@@ -54,6 +54,11 @@ BoxShadow getBoxShadow(double show) {
   );
 }
 
+String getAudioName(String url) {
+  List<String> parts = url.split("/");
+  return parts[parts.length - 2];
+}
+
 Future<SharedPreferences> prefs() async {
   return await SharedPreferences.getInstance();
 }

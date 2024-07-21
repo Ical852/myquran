@@ -10,6 +10,7 @@ extension TextStyleExtension on TextStyle {
   TextStyle get danger => copyWith(color: redColor);
   TextStyle get info => copyWith(color: infoColor);
   TextStyle get success => copyWith(color: successColor);
+  TextStyle get prim => copyWith(color: primary);
 
   TextStyle get light => copyWith(fontWeight: fontLight);
   TextStyle get regularF => copyWith(fontWeight: fontRegular);
