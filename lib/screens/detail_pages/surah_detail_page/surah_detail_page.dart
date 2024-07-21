@@ -28,6 +28,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
   late DetailSurahViewModel detailVM = DetailSurahViewModel(context);
 
   final player = AudioPlayer();
+  // ignore: unused_field
   PlayerState _playerState = PlayerState.stopped;
   late StreamSubscription<PlayerState> _playerStateSubscription;
 

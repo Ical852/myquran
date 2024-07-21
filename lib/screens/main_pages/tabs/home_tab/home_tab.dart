@@ -7,7 +7,6 @@ import 'package:myquran/models/get_surah_response_model.dart';
 import 'package:myquran/screens/detail_pages/surah_detail_page/surah_detail_page.dart';
 import 'package:myquran/screens/main_pages/tabs/home_tab/partials/last_read.dart';
 import 'package:myquran/screens/main_pages/tabs/home_tab/partials/surah_gap.dart';
-import 'package:myquran/screens/search_pages/search_page/search_page.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/view_models/main_page/home_view_model.dart';
 import 'package:myquran/widgets/header_custom.dart';
