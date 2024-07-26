@@ -55,18 +55,6 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
       });
     }
 
-    void autoScrollToPlayingAyat() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (audioCubit.currentPlay.isNotEmpty) {
-          _scrollController.animateTo(
-            audioCubit.currentIndex * 150.0, // Adjust the offset as needed
-            duration: Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-      });
-    }
-
     Widget HeaderContent() {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -81,8 +69,6 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
     }
 
     Widget AyatList(Data data) {
-      autoScrollToPlayingAyat();
-
       return BlocConsumer<BookmarkAyatCubit, List<Ayat>>(
         listener: (context, state) {},
         builder: (context, state) {
