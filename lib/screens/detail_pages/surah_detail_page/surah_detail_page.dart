@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myquran/blocs/cubits/audio_player_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/get_detail_surah_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
@@ -26,73 +25,53 @@ class SurahDetailPage extends StatefulWidget {
 
 class _SurahDetailPageState extends State<SurahDetailPage> {
   late DetailSurahViewModel detailVM = DetailSurahViewModel(context);
-
-  final player = AudioPlayer();
-  // ignore: unused_field
-  PlayerState _playerState = PlayerState.stopped;
-  late StreamSubscription<PlayerState> _playerStateSubscription;
-
-  String currentPlay = "";
   String loading = "";
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     detailVM.getDetailSurah(this.widget.surah.nomor!);
-    _playerStateSubscription =
-        player.onPlayerStateChanged.listen((PlayerState state) {
-      setState(() {
-        _playerState = state;
-      });
-
-      if (state == PlayerState.completed) {
-        setState(() {
-          currentPlay = "";
-          loading = "";
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
-    player.stop();
-    player.dispose();
-    _playerStateSubscription.cancel();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var surah = this.widget.surah;
+    final audioCubit = context.read<AudioPlayerCubit>();
 
-    void playHandler(String audio) async {
-      if (currentPlay == audio) {
-        setState(() {
-          loading = currentPlay;
-        });
-        await player.stop();
-        setState(() {
-          loading = "";
-          currentPlay = "";
-        });
-      } else {
-        setState(() {
-          loading = audio;
-          currentPlay = audio;
-        });
-        await player.play(UrlSource(audio));
-        setState(() {
-          loading = "";
-        });
-      }
+    void playHandler(String audio, List<String> audioList, int index) async {
+      setState(() {
+        loading = audio;
+      });
+      await audioCubit.play(audio, audioList, index);
+      setState(() {
+        loading = "";
+      });
+    }
+
+    void autoScrollToPlayingAyat() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (audioCubit.currentPlay.isNotEmpty) {
+          _scrollController.animateTo(
+            audioCubit.currentIndex * 150.0, // Adjust the offset as needed
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
     }
 
     Widget HeaderContent() {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         child: HeaderCustom(
-          onBack: () => player.stop(),
+          onBack: () => {},
           icon: "ic-bookmark.png",
           backAble: true,
           title: this.widget.surah.namaLatin ?? "-",
@@ -102,22 +81,27 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
     }
 
     Widget AyatList(Data data) {
+      autoScrollToPlayingAyat();
+
       return BlocConsumer<BookmarkAyatCubit, List<Ayat>>(
         listener: (context, state) {},
         builder: (context, state) {
+          List<String> audioList = data.ayat!.map((e) => e.audio!.s01!).toList();
+          
           return Container(
             margin: EdgeInsets.only(top: 32, left: 24, right: 24),
             child: ListView.builder(
+              controller: _scrollController,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
               itemCount: data.jumlahAyat,
               itemBuilder: (context, index) {
                 var ayat = data.ayat![index];
                 return AyatCard(
                   ayat: ayat,
-                  currentPlay: currentPlay,
+                  currentPlay: context.watch<AudioPlayerCubit>().state == PlayerState.playing 
+                    ? audioCubit.currentPlay : "",
                   loading: loading,
-                  onPlay: (audio) => playHandler(audio),
+                  onPlay: (audio) => playHandler(audio, audioList, index),
                   onBookmark: () => {},
                   isBookmarked: false,
                 );
@@ -146,8 +130,9 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         height: double.infinity,
         child: Center(
           child: RetryFetch(
-              title: "Failed to get detail surah data",
-              onRefetch: () => detailVM.getDetailSurah(surah.nomor!)),
+            title: "Failed to get detail surah data",
+            onRefetch: () => detailVM.getDetailSurah(surah.nomor!),
+          ),
         ),
       );
     }
@@ -166,7 +151,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        player.stop();
+        // Do not stop the audio when back
         return true;
       },
       child: Scaffold(
@@ -176,7 +161,8 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
             listener: (context, state) {
               if (state is GetDetailSurahFailed) {
                 showGLobalAlert(
-                    "danger", "Failed to get detail surah data", context);
+                  "danger", "Failed to get detail surah data", context,
+                );
               }
             },
             builder: (context, state) {

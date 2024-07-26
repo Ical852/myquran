@@ -7,8 +7,8 @@ import 'package:myquran/widgets/ayat_card/partials/ayat_content.dart';
 // ignore: must_be_immutable
 class AyatCard extends StatefulWidget {
   Ayat ayat;
-  String currentPlay = "";
-  String loading = "";
+  String currentPlay;
+  String loading;
   Function(String) onPlay;
   Function() onBookmark;
   bool isBookmarked;
@@ -32,9 +32,9 @@ class _AyatCardState extends State<AyatCard> {
 
   @override
   Widget build(BuildContext context) {
-    var ayat = this.widget.ayat;
-    String currentPlay = this.widget.currentPlay;
-    String loading = this.widget.loading;
+    var ayat = widget.ayat;
+    String currentPlay = widget.currentPlay;
+    String loading = widget.loading;
 
     Widget AudioList() {
       if (audioOpen) {
@@ -42,44 +42,37 @@ class _AyatCardState extends State<AyatCard> {
           margin: EdgeInsets.only(top: 16),
           child: ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              var audio = ayat.audio!.toList()[index];
               return AudioCard(
-                audio: audio!,
+                audio: ayat.audio!.s01!,
                 current: currentPlay,
-                isLoading: loading == audio,
-                onPlay: () => this.widget.onPlay(audio),
+                isLoading: loading == ayat.audio!.s01!,
+                onPlay: () => widget.onPlay(ayat.audio!.s01!),
               );
-            }
-          )
+            },
+          ),
         );
       }
       return Container();
     }
 
-    return Container(
-      margin: EdgeInsets.only(bottom: 24),
-      child: Column(
-        children: [
-          AyatAction(
-            audio: ayat.audio!.s01!,
-            current: currentPlay,
-            isLoading: loading == ayat.audio!.s01!,
-            ayatNumber: ayat.nomorAyat!,
-            audioOpen: audioOpen,
-            onAudio: () => setState(() {
-              audioOpen = !audioOpen;
-            }),
-            onPlay: () => this.widget.onPlay(ayat.audio!.s01!),
-            onBookmark: this.widget.onBookmark,
-            isBookmarked: this.widget.isBookmarked,
-            audioList: AudioList(),
-          ),
-          AyatContent(ayat: ayat)
-        ],
-      ),
+    return Column(
+      children: [
+        AyatAction(
+          ayatNumber: ayat.nomorAyat!,
+          audioList: AudioList(),
+          audioOpen: audioOpen,
+          onAudio: () => setState(() => audioOpen = !audioOpen),
+          onPlay: () => widget.onPlay(ayat.audio!.s01!),
+          isLoading: loading == ayat.audio!.s01!,
+          current: currentPlay,
+          audio: ayat.audio!.s01!,
+          onBookmark: widget.onBookmark,
+          isBookmarked: widget.isBookmarked,
+        ),
+        AyatContent(ayat: ayat),
+      ],
     );
   }
 }
