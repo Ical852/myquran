@@ -56,7 +56,7 @@ class LastRead extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Asslamualaikum",
+                "Assalamualaikum",
                 style: large.grey.mediumF,
               ),
               SizedBox(height: 4),

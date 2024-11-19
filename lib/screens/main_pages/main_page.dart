@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
               child: Stack(
                 children: [
                   RenderContent(state),
-                  // BottomNavigatorContent(state)
+                  BottomNavigatorContent(state),
                 ],
               ),
             );
