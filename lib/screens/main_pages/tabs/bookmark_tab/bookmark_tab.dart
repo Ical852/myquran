@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myquran/screens/search_pages/search_page/search_page.dart';
+import 'package:myquran/screens/search_pages/search_bookmark_page/search_bookmark_page.dart';
 import 'package:myquran/widgets/bookmar_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/functions/global_func.dart';
@@ -22,7 +22,8 @@ class _BookmarkTabState extends State<BookmarkTab> {
         ),
         child: HeaderCustom(
           title: "Bookmarks",
-          onRight: () => goToPage(context, SearchPage()),
+          onRight: () => goToPage(context, SearchBookmarkPage()),
+          leftIcon: "ic-bar.png",
         ),
       );
     }
