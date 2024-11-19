@@ -6,7 +6,7 @@ import 'package:myquran/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class AudioCard extends StatelessWidget {
-  bool isLoading;
+  bool isLoading, isAuto;
   String audio, current;
   Function() onPlay;
 
@@ -16,6 +16,7 @@ class AudioCard extends StatelessWidget {
     required this.current,
     required this.onPlay,
     required this.isLoading,
+    this.isAuto = false,
   });
 
   @override
@@ -49,7 +50,7 @@ class AudioCard extends StatelessWidget {
           ),
           SizedBox(width: 8),
           Text(
-            getAudioName(audio),
+            getAudioName(audio) + "${isAuto ? ' - (AUTO)' : ''}",
             style: regular.text.semiBold,
           )
         ],

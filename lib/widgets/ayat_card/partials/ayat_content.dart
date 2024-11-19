@@ -17,9 +17,9 @@ class AyatContent extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: greyColor.withOpacity(0.2)
-          )
-        )
+            color: greyColor.withOpacity(0.2),
+          ),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -33,7 +33,7 @@ class AyatContent extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
           ),
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(

@@ -39,6 +39,7 @@ class _HomeTabState extends State<HomeTab> {
           vertical: 32
         ),
         child: HeaderCustom(
+          leftIcon: "ic-bar.png",
           title: "Home",
           onRight: () => goToPage(context, SearchPage()),
         ),

@@ -50,12 +50,10 @@ class SurahCard extends StatelessWidget {
               Container(
                 width: 4,
                 height: 4,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8
-                ),
+                margin: EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
                   color: greyColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(50)
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
               Text(
@@ -63,7 +61,7 @@ class SurahCard extends StatelessWidget {
                 style: small.grey.mediumF,
               ),
             ],
-          )
+          ),
         ],
       );
     }
@@ -78,8 +76,8 @@ class SurahCard extends StatelessWidget {
           border: Border(
             bottom: BorderSide(
               color: greyColor.withOpacity(0.5)
-            )
-          )
+            ),
+          ),
         ),
         child: Row(
           children: [
@@ -90,7 +88,7 @@ class SurahCard extends StatelessWidget {
             Text(
               surah.nama ?? "-",
               style: mega.prim.semiBold,
-            )
+            ),
           ],
         ),
       ),

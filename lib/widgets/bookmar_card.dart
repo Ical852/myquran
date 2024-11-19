@@ -36,7 +36,7 @@ class BookmarCard extends StatelessWidget {
             width: 24,
             height: 24,
             image: AssetImage(getIC("ic-options.png")),
-          )
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +45,18 @@ String getIM(String image) {
 
 String getIL(String illustrations) {
   return "assets/illustrations/$illustrations";
+}
+
+List<dynamic> getAudio(Ayat ayat) {
+  var setup = ayat.toJson();
+  var audios = [];
+  for (var i = 1; i < 6; i++) {
+    var audio = setup['audio']['0${i}'];
+    if (audio != null) {
+      audios.add(audio);
+    }
+  }
+  return audios;
 }
 
 BoxShadow getBoxShadow(double show) {

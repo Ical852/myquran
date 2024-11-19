@@ -55,7 +55,7 @@ class AyatAction extends StatelessWidget {
                 color: primary,
               ),
             ) :
-            RenderIcon("ic-ayat-${isCurrent ? "pause" : "played"}.png")
+            RenderIcon("ic-ayat-${isCurrent ? "pause" : "played"}.png"),
           ),
           SizedBox(width: 16),
           GestureDetector(
@@ -94,7 +94,7 @@ class AyatAction extends StatelessWidget {
                   ),
                 ),
               ),
-              AyatActionContet()
+              AyatActionContet(),
             ],
           ),
           audioList,

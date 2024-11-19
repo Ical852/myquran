@@ -24,27 +24,43 @@ class SurahDetailPage extends StatefulWidget {
 }
 
 class _SurahDetailPageState extends State<SurahDetailPage> {
+  // Cubit Behavior
   late DetailSurahViewModel detailVM = DetailSurahViewModel(context);
   String loading = "";
   ScrollController _scrollController = ScrollController();
+  // Cubit Behavior
+
+  // Local other behavior
+  final otherAudioPlayer = AudioPlayer();
+  var otherCurrentPlay = "";
+  var otherLoading = "";
+  // Local other behavior
 
   @override
   void initState() {
     super.initState();
     detailVM.getDetailSurah(this.widget.surah.nomor!);
+    // Local other behavior
+    otherAudioPlayer.onPlayerComplete.listen((event) {
+      otherAudioPlayer.stop();
+    });
+    // Local other behavior
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    // Local other behavior
+    otherAudioPlayer.dispose();
+    // Local other behavior
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Cubit behavior
     var surah = this.widget.surah;
     final audioCubit = context.read<AudioPlayerCubit>();
-
     void playHandler(String audio, List<String> audioList, int index) async {
       setState(() {
         loading = audio;
@@ -54,6 +70,28 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         loading = "";
       });
     }
+    // Cubit behavior
+
+    // Local other behavior
+    void playOtherAudio(audio) async {
+      audioCubit.stop();
+      setState(() {
+        otherLoading = audio;
+        otherCurrentPlay = audio;
+      });
+      await otherAudioPlayer.play(UrlSource(audio));
+      setState(() {
+        otherLoading = "";
+      });
+    }
+    void stopOtherAudio() async {
+      await otherAudioPlayer.stop();
+      setState(() {
+        otherLoading = "";
+        otherCurrentPlay = "";
+      });
+    }
+    // Local other behavior
 
     Widget HeaderContent() {
       return Container(
@@ -87,9 +125,13 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
                   onPlay: (audio) => playHandler(audio, audioList, index),
                   onBookmark: () => {},
                   isBookmarked: false,
+                  otherCurrentPlay: otherCurrentPlay,
+                  otherLoading: otherLoading,
+                  playOther: (e) => playOtherAudio(e),
+                  stopOther: () => stopOtherAudio(),
                 );
               }
-            )
+            ),
           );
         },
       );

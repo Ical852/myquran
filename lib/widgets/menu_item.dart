@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/widgets/image_custom.dart';
@@ -18,32 +19,15 @@ class MenuItemCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String getIcon() {
-      if (icon == 'home') {
-        return active ? 'ic-home-active.png' : 'ic-home.png';
-      } else if (icon == 'bookmark') {
+      if (icon == 'bookmark') {
         return active ? 'ic-bookmark-active.png' : 'ic-bookmark.png';
-      } else {
-        return active ? 'ic-home-active.png' : 'ic-home.png';
       }
-    }
-
-    ImageProvider GeneratedIcon() {
-      return AssetImage('assets/icons/' + getIcon());
-    }
-
-    String getMenuTitle() {
-      if (icon == 'home') {
-        return 'Home';
-      } else if (icon == 'bookmark') {
-        return 'Bookmark';
-      } else {
-        return 'Home';
-      }
+      return active ? 'ic-home-active.png' : 'ic-home.png';
     }
 
     Text GeneratedText() {
       return Text(
-        getMenuTitle(),
+        capitalize(icon),
         style: regular.copyWith(
           fontWeight: active ? fontSemiBold : fontRegular,
           color: active ? primary : secondary
@@ -60,9 +44,9 @@ class MenuItemCustom extends StatelessWidget {
             ImageCustom(
               width: 24,
               height: 24,
-              image: GeneratedIcon(),
+              image: AssetImage(getIC(getIcon())),
             ),
-            GeneratedText()
+            GeneratedText(),
           ],
         ),
       ),

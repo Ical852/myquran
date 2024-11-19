@@ -50,7 +50,7 @@ class HeaderCustom extends StatelessWidget {
               Text(
                 title,
                 style: mega.text.bold,
-              )
+              ),
             ],
           ),
           GestureDetector(
@@ -62,7 +62,7 @@ class HeaderCustom extends StatelessWidget {
               width: rightIcWidth,
               image: AssetImage(getIC(rightIcon)),
             ),
-          )
+          ),
         ],
       ),
     );

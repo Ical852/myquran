@@ -26,8 +26,8 @@ class RetryFetch extends StatelessWidget {
           SizedBox(height: 12),
           MiniButtonCustom(
             title: "Try Again",
-            onPressed: onRefetch
-          )
+            onPressed: onRefetch,
+          ),
         ],
       ),
     );
