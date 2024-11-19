@@ -7,10 +7,10 @@ part '../states/bookmark_ayat_state.dart';
 class BookmarkAyatCubit extends Cubit<List<Ayat>> {
   BookmarkAyatCubit() : super([]);
 
-  bool addAyat(Ayat ayat) {
+  bool addAyat(Ayat data) {
     try {
       var newState = state;
-      newState.add(ayat);
+      newState.add(data);
       emit(newState);
       return true;
     } catch (e) {
@@ -18,10 +18,10 @@ class BookmarkAyatCubit extends Cubit<List<Ayat>> {
     }
   }
 
-  bool removeAyat(Ayat ayat) {
+  bool removeAyat(Ayat data) {
     try {
       var newState = state;
-      newState.removeWhere((ayat) => ayat.teksArab == ayat.teksArab);
+      newState.removeWhere((ayat) => ayat.teksArab == data.teksArab);
       emit(newState);
       return true;
     } catch (e) {
@@ -29,10 +29,9 @@ class BookmarkAyatCubit extends Cubit<List<Ayat>> {
     }
   }
 
-  bool isExist(Ayat ayat) {
+  bool isExist(Ayat data) {
     try {
-      var find = state.firstWhere((ayat) => ayat == ayat, orElse: null);
-      return ayat.teksArab == find.teksArab;
+      return state.any((ayat) => ayat.teksArab == data.teksArab);
     } catch (e) {
       return false;
     }

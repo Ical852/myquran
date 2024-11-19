@@ -21,7 +21,7 @@ class BookmarkSurahCubit extends Cubit<List<Data>> {
   bool removeSurah(Data data) {
     try {
       var newState = state;
-      newState.removeWhere((surah) => surah.nomor == data.nomor);
+      newState.removeWhere((surah) => surah.nama == data.nama);
       emit(newState);
       return true;
     } catch (e) {
@@ -31,8 +31,7 @@ class BookmarkSurahCubit extends Cubit<List<Data>> {
 
   bool isExist(Data data) {
     try {
-      var find = state.firstWhere((data) => data == data, orElse: null);
-      return data == find;
+      return state.any((surah) => surah.nama == data.nama);
     } catch (e) {
       return false;
     }

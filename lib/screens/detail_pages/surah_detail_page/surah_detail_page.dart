@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myquran/blocs/cubits/audio_player_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
+import 'package:myquran/blocs/cubits/bookmark_surah_cubit.dart';
 import 'package:myquran/blocs/cubits/get_detail_surah_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/models/get_detail_surah_response_model.dart';
@@ -84,6 +85,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         otherLoading = "";
       });
     }
+
     void stopOtherAudio() async {
       await otherAudioPlayer.stop();
       setState(() {
@@ -94,12 +96,22 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
     // Local other behavior
 
     Widget HeaderContent() {
-      return Container(
-        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: HeaderCustom(
-          rightIcon: "ic-bookmark.png",
-          title: this.widget.surah.namaLatin ?? "-",
-        ),
+      return BlocConsumer<BookmarkSurahCubit, List<surahModel.Data>>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            child: HeaderCustom(
+              rightIcon: "ic-bookmark${detailVM.surahBookmarked(surah) ? '-active' : ''}.png",
+              title: this.widget.surah.namaLatin ?? "-",
+              onRight: () {
+                setState(() {
+                  detailVM.surahBookmark(surah);
+                });
+              },
+            ),
+          );
+        },
       );
     }
 
@@ -108,7 +120,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         listener: (context, state) {},
         builder: (context, state) {
           List<String> audioList = data.ayat!.map((e) => e.audio!.s01!).toList();
-          
+
           return Container(
             margin: EdgeInsets.only(top: 32, left: 24, right: 24),
             child: ListView.builder(
@@ -119,12 +131,15 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
                 var ayat = data.ayat![index];
                 return AyatCard(
                   ayat: ayat,
-                  currentPlay: context.watch<AudioPlayerCubit>().state == PlayerState.playing 
-                    ? audioCubit.currentPlay : "",
+                  currentPlay: context.watch<AudioPlayerCubit>().state == PlayerState.playing
+                    ? audioCubit.currentPlay
+                    : "",
                   loading: loading,
                   onPlay: (audio) => playHandler(audio, audioList, index),
-                  onBookmark: () => {},
-                  isBookmarked: false,
+                  onBookmark: () => setState(() {
+                    detailVM.ayatBookmark(ayat);
+                  }),
+                  isBookmarked: detailVM.ayatBookmarked(ayat),
                   otherCurrentPlay: otherCurrentPlay,
                   otherLoading: otherLoading,
                   playOther: (e) => playOtherAudio(e),
@@ -185,9 +200,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
           child: BlocConsumer<GetDetailSurahCubit, GetDetailSurahState>(
             listener: (context, state) {
               if (state is GetDetailSurahFailed) {
-                showGLobalAlert(
-                  "danger", "Failed to get detail surah data", context,
-                );
+                showGLobalAlert("danger", "Failed to get detail surah data", context);
               }
             },
             builder: (context, state) {
