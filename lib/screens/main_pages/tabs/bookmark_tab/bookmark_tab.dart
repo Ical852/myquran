@@ -22,7 +22,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
         ),
         child: HeaderCustom(
           title: "Bookmarks",
-          onSearch: () => goToPage(context, SearchPage()),
+          onRight: () => goToPage(context, SearchPage()),
         ),
       );
     }

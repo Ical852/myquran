@@ -59,11 +59,8 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         child: HeaderCustom(
-          onBack: () => {},
-          icon: "ic-bookmark.png",
-          backAble: true,
+          rightIcon: "ic-bookmark.png",
           title: this.widget.surah.namaLatin ?? "-",
-          onSearch: () => {},
         ),
       );
     }
@@ -154,8 +151,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
             builder: (context, state) {
               if (state is GetDetailSurahLoading) return DetailLoading();
               if (state is GetDetailSurahFailed) return DetailFailed();
-              if (state is GetDetailSurahSuccess)
-                return DetailContent(state.detail);
+              if (state is GetDetailSurahSuccess) return DetailContent(state.detail);
               return Container();
             },
           ),

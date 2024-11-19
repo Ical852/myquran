@@ -5,37 +5,36 @@ import 'package:myquran/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class HeaderCustom extends StatelessWidget {
-  String? icon;
   String title;
-  bool backAble;
-  Function()? onBack, onSearch;
+  String leftIcon, rightIcon;
+  double leftIconWidth, leftIconHeight, rightIcWidth, rightIcHeight;
+  Function()? onLeft, onRight;
 
   HeaderCustom({
     super.key,
     required this.title,
-    this.backAble = false,
-    this.onBack = null,
-    this.onSearch = null,
-    this.icon,
+    this.onLeft = null,
+    this.onRight = null,
+    this.leftIcon = "ic-back.png",
+    this.rightIcon = "ic-search.png",
+    this.leftIconWidth = 26,
+    this.leftIconHeight = 26,
+    this.rightIcWidth = 24,
+    this.rightIcHeight = 24,
   });
 
   @override
   Widget build(BuildContext context) {
-    var rightIcon = this.icon != null ? this.icon : "ic-search.png";
-    
     Widget LeftContent() {
-      var icon = backAble ? "ic-back.png" : "ic-bar.png";
       return GestureDetector(
         onTap: (){
-          if (backAble) {
-            if (onBack != null) onBack!();
-            Navigator.pop(context);
-          }
+          if (leftIcon == "ic-back.png") Navigator.pop(context);
+          if (onLeft != null) onLeft!();
         },
         child: ImageCustom(
-          height: backAble ? 26 : 24,
-          width: backAble ? 26 : 24,
-          image: AssetImage(getIC(icon)),
+          height: leftIconHeight,
+          width: leftIconWidth,
+          image: AssetImage(getIC(leftIcon)),
         ),
       );
     }
@@ -56,12 +55,12 @@ class HeaderCustom extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-              if (onSearch != null) onSearch!();
+              if (onRight != null) onRight!();
             },
             child: ImageCustom(
-              height: 24,
-              width: 24,
-              image: AssetImage(getIC(rightIcon!)),
+              height: rightIcHeight,
+              width: rightIcWidth,
+              image: AssetImage(getIC(rightIcon)),
             ),
           )
         ],
