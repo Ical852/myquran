@@ -1,20 +1,22 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:myquran/blocs/states/audio_player_state.dart';
+import 'package:myquran/models/get_surah_response_model.dart';
 
-part '../states/audio_player_state.dart';
-
-class AudioPlayerCubit extends Cubit<PlayerState> {
+class AudioPlayerCubit extends Cubit<AudioPlayerState> {
   final AudioPlayer _audioPlayer;
-  String _currentPlay = "";
-  int _currentIndex = 0;
-  List<String> _audioList = [];
 
   AudioPlayerCubit()
       : _audioPlayer = AudioPlayer(),
-        super(PlayerState.stopped) {
-    _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      emit(state);
+        super(AudioPlayerState(
+          currentPlay: "",
+          currentIndex: 0,
+          audioList: [],
+          playerState: PlayerState.stopped,
+          surah: null,
+        )) {
+    _audioPlayer.onPlayerStateChanged.listen((PlayerState playerState) {
+      emit(state.copyWith(playerState: playerState));
     });
 
     _audioPlayer.onPlayerComplete.listen((event) {
@@ -22,31 +24,38 @@ class AudioPlayerCubit extends Cubit<PlayerState> {
     });
   }
 
-  String get currentPlay => _currentPlay;
-  int get currentIndex => _currentIndex;
-
-  Future<void> play(String url, List<String> audioList, int index) async {
-    if (_currentPlay == url && state == PlayerState.playing) {
+  Future<void> play(String url, List<String> audioList, int index, Data surah) async {
+    if (state.currentPlay == url && state.playerState == PlayerState.playing) {
       await stop();
     } else {
-      _currentPlay = url;
-      _audioList = audioList;
-      _currentIndex = index;
       await _audioPlayer.play(UrlSource(url));
+      emit(state.copyWith(
+        currentPlay: url,
+        audioList: audioList,
+        currentIndex: index,
+        surah: surah,
+      ));
     }
   }
 
   Future<void> stop() async {
     await _audioPlayer.stop();
-    _currentPlay = "";
-    _currentIndex = 0;
+    emit(state.copyWith(
+      currentPlay: "",
+      currentIndex: 0,
+      playerState: PlayerState.stopped,
+    ));
   }
 
   void _playNext() async {
-    if (_currentIndex + 1 < _audioList.length) {
-      _currentIndex++;
-      _currentPlay = _audioList[_currentIndex];
-      await _audioPlayer.play(UrlSource(_currentPlay));
+    if (state.currentIndex + 1 < state.audioList.length) {
+      final nextIndex = state.currentIndex + 1;
+      final nextUrl = state.audioList[nextIndex];
+      await _audioPlayer.play(UrlSource(nextUrl));
+      emit(state.copyWith(
+        currentPlay: nextUrl,
+        currentIndex: nextIndex,
+      ));
     } else {
       await stop();
     }

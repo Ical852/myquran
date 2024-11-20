@@ -66,7 +66,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
       setState(() {
         loading = audio;
       });
-      await audioCubit.play(audio, audioList, index);
+      await audioCubit.play(audio, audioList, index, surah);
       setState(() {
         loading = "";
       });
@@ -131,8 +131,8 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
                 var ayat = data.ayat![index];
                 return AyatCard(
                   ayat: ayat,
-                  currentPlay: context.watch<AudioPlayerCubit>().state == PlayerState.playing
-                    ? audioCubit.currentPlay
+                  currentPlay: context.watch<AudioPlayerCubit>().state.playerState == PlayerState.playing
+                    ? audioCubit.state.currentPlay
                     : "",
                   loading: loading,
                   onPlay: (audio) => playHandler(audio, audioList, index),
