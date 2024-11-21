@@ -13,8 +13,10 @@ import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/widgets/retry_fetch.dart';
 import 'package:myquran/widgets/surah_card.dart';
 
+// ignore: must_be_immutable
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  Function() openDrawer;
+  HomeTab(this.openDrawer);
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -41,6 +43,7 @@ class _HomeTabState extends State<HomeTab> {
           leftIcon: "ic-bar.png",
           title: "Home",
           onRight: () => goToPage(context, SearchPage()),
+          onLeft: () => widget.openDrawer(),
         ),
       );
     }

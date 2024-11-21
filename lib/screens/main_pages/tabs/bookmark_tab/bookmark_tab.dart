@@ -4,8 +4,10 @@ import 'package:myquran/widgets/bookmar_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/functions/global_func.dart';
 
+// ignore: must_be_immutable
 class BookmarkTab extends StatefulWidget {
-  const BookmarkTab({super.key});
+  Function() openDrawer;
+  BookmarkTab(this.openDrawer);
 
   @override
   State<BookmarkTab> createState() => _BookmarkTabState();
@@ -24,6 +26,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
           title: "Bookmarks",
           onRight: () => goToPage(context, SearchBookmarkPage()),
           leftIcon: "ic-bar.png",
+          onLeft: () => widget.openDrawer(),
         ),
       );
     }
