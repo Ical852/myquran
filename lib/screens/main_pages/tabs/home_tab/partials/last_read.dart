@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myquran/blocs/cubits/current_read_cubit.dart';
+import 'package:myquran/blocs/cubits/audio_player_cubit.dart';
+import 'package:myquran/blocs/states/audio_player_state.dart';
 import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/screens/detail_pages/surah_detail_page/surah_detail_page.dart';
 import 'package:myquran/shared/text_styles.dart';
@@ -11,7 +12,7 @@ class LastRead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget LastReadContent(CurrentReadModel state) {
+    Widget LastReadContent(AudioPlayerState state) {
       return Container(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -33,12 +34,12 @@ class LastRead extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              state.data?.namaLatin ?? "No Read Yet",
+              state.surah?.namaLatin ?? "No Read Yet",
               style: large.white.semiBold,
             ),
             SizedBox(width: 4),
             Text(
-              "Ayat No: ${state.ayat ?? 'No Read Yet'}",
+              state.surah != null ? "Ayat No: ${state.currentIndex + 1}" : 'No Read Yet',
               style: regular.white.regularF,
             )
           ],
@@ -46,7 +47,7 @@ class LastRead extends StatelessWidget {
       );
     }
 
-    return BlocConsumer<CurrentReadCubit, CurrentReadModel>(
+    return BlocConsumer<AudioPlayerCubit, AudioPlayerState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
@@ -62,8 +63,8 @@ class LastRead extends StatelessWidget {
               SizedBox(height: 4),
               GestureDetector(
                 onTap: () {
-                  if (state.data != null) {
-                    goToPage(context, SurahDetailPage(state.data!));
+                  if (state.surah != null) {
+                    goToPage(context, SurahDetailPage(state.surah!));
                   }
                 },
                 child: ImageCustom(

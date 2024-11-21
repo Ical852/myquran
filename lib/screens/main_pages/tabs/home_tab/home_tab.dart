@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myquran/blocs/cubits/current_read_cubit.dart';
 import 'package:myquran/blocs/cubits/get_surah_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/models/get_surah_response_model.dart';
@@ -82,11 +81,9 @@ class _HomeTabState extends State<HomeTab> {
         itemCount: surahs.data!.length,
         itemBuilder: (context, index) {
           var surah = surahs.data![index];
-          var current = CurrentReadModel(surah, 1);
           return SurahCard(
             surah: surah,
             onPress: () {
-              homeVM.setCurrentRead(current);
               goToPage(context, SurahDetailPage(surah));
             },
           );

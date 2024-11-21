@@ -40,12 +40,16 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
   @override
   void initState() {
     super.initState();
-    detailVM.getDetailSurah(this.widget.surah.nomor!);
     // Local other behavior
     otherAudioPlayer.onPlayerComplete.listen((event) {
       otherAudioPlayer.stop();
+      setState(() {
+        otherLoading = "";
+        otherCurrentPlay = "";
+      });
     });
     // Local other behavior
+    detailVM.getDetailSurah(this.widget.surah.nomor!);
   }
 
   @override
@@ -189,27 +193,21 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
       );
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Do not stop the audio when back
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: white,
-        body: SafeArea(
-          child: BlocConsumer<GetDetailSurahCubit, GetDetailSurahState>(
-            listener: (context, state) {
-              if (state is GetDetailSurahFailed) {
-                showGLobalAlert("danger", "Failed to get detail surah data", context);
-              }
-            },
-            builder: (context, state) {
-              if (state is GetDetailSurahLoading) return DetailLoading();
-              if (state is GetDetailSurahFailed) return DetailFailed();
-              if (state is GetDetailSurahSuccess) return DetailContent(state.detail);
-              return Container();
-            },
-          ),
+    return Scaffold(
+      backgroundColor: white,
+      body: SafeArea(
+        child: BlocConsumer<GetDetailSurahCubit, GetDetailSurahState>(
+          listener: (context, state) {
+            if (state is GetDetailSurahFailed) {
+              showGLobalAlert("danger", "Failed to get detail surah data", context);
+            }
+          },
+          builder: (context, state) {
+            if (state is GetDetailSurahLoading) return DetailLoading();
+            if (state is GetDetailSurahFailed) return DetailFailed();
+            if (state is GetDetailSurahSuccess) return DetailContent(state.detail);
+            return Container();
+          },
         ),
       ),
     );

@@ -42,7 +42,6 @@ class AudioPlayerCubit extends Cubit<AudioPlayerState> {
     await _audioPlayer.stop();
     emit(state.copyWith(
       currentPlay: "",
-      currentIndex: 0,
       playerState: PlayerState.stopped,
     ));
   }
