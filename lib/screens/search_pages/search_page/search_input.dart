@@ -25,7 +25,7 @@ class SearchInput extends StatelessWidget {
       color: primary,
       padding: EdgeInsets.symmetric(
         horizontal: 24,
-        vertical: 16
+        vertical: 16,
       ),
       child: Row(
         children: [
@@ -37,7 +37,7 @@ class SearchInput extends StatelessWidget {
               margin: EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: whiteColor
+                color: whiteColor,
               ),
               child: Center(
                 child: ImageCustom(
@@ -53,7 +53,7 @@ class SearchInput extends StatelessWidget {
               height: 45,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: whiteColor
+                color: whiteColor,
               ),
               child: Stack(
                 children: [
@@ -63,7 +63,7 @@ class SearchInput extends StatelessWidget {
                       labelText: "Search quran",
                       labelStyle: regular.grey.regularF,
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(right: 52, left: 16)
+                      contentPadding: EdgeInsets.only(right: 52, left: 16),
                     ),
                     onFieldSubmitted: onFieldSubmitted,
                   ),
@@ -75,7 +75,7 @@ class SearchInput extends StatelessWidget {
                       height: 24,
                       image: AssetImage(getIC("ic-search-page.png")),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

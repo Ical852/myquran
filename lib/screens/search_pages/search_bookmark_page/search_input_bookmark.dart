@@ -75,7 +75,7 @@ class SearcInputhBookmark extends StatelessWidget {
                       height: 24,
                       image: AssetImage(getIC("ic-search-page.png")),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
