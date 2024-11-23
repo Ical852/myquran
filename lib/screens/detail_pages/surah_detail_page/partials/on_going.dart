@@ -58,7 +58,7 @@ class OnGoing extends StatelessWidget {
               width: 214,
               height: 48,
               image: AssetImage(getIM("bismillah.png")),
-            )
+            ),
           ],
         ),
       );

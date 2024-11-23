@@ -32,9 +32,7 @@ class AudioCard extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(
-        bottom: 8
-      ),
+      margin: EdgeInsets.only(bottom: 8),
       child: Row(
         children: [
           GestureDetector(
@@ -52,7 +50,7 @@ class AudioCard extends StatelessWidget {
           Text(
             getAudioName(audio) + "${isAuto ? ' - (AUTO)' : ''}",
             style: regular.text.semiBold,
-          )
+          ),
         ],
       ),
     );

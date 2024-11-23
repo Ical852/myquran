@@ -24,7 +24,7 @@ class ImageCustom extends StatelessWidget {
     this.fit,
     this.child,
     this.network = false,
-    this.nwUrl
+    this.nwUrl,
   });
 
   @override
@@ -41,9 +41,9 @@ class ImageCustom extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: imageProvider,
-                fit: fit
+                fit: fit,
               ),
-              borderRadius: borderRadius
+              borderRadius: borderRadius,
             ),
           );
         },
@@ -66,9 +66,9 @@ class ImageCustom extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: image!,
-          fit: fit
+          fit: fit,
         ),
-        borderRadius: borderRadius
+        borderRadius: borderRadius,
       ),
       child: child,
     );

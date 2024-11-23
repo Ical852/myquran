@@ -4,12 +4,12 @@ import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
-class BookmarCard extends StatelessWidget {
+class BookmarkCard extends StatelessWidget {
   String title;
   int total;
   Function() onPress;
   
-  BookmarCard({
+  BookmarkCard({
     super.key,
     required this.title,
     required this.total,

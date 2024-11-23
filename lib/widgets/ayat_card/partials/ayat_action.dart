@@ -23,7 +23,7 @@ class AyatAction extends StatelessWidget {
     required this.current,
     required this.audio,
     required this.onBookmark,
-    this.isBookmarked = false
+    this.isBookmarked = false,
   });
 
   @override
@@ -73,7 +73,7 @@ class AyatAction extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(
         horizontal: 14,
-        vertical: 10
+        vertical: 10,
       ),
       child: Column(
         children: [

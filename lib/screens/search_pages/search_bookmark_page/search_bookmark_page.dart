@@ -49,10 +49,10 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    BookmarkHead()
+                    BookmarkHead(),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

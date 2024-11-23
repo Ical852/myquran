@@ -20,7 +20,7 @@ class SurahGap extends StatelessWidget {
             height: 2,
             width: double.infinity,
             color: primary,
-          )
+          ),
         ],
       ),
     );

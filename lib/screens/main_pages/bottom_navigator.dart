@@ -27,8 +27,8 @@ class BottomNavigator extends StatelessWidget {
               BoxShadow(
                 color: black.withOpacity(0.9),
                 blurRadius: 9,
-                offset: Offset(0, 9)
-              )
+                offset: Offset(0, 9),
+              ),
             ]
           ),
           child: Row(

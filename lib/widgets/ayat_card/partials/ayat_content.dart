@@ -42,7 +42,7 @@ class AyatContent extends StatelessWidget {
               textAlign: TextAlign.justify,
             ),
           ),
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
         ],
       ),
     );

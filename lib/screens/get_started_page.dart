@@ -27,7 +27,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
             "Welcome",
             style: xLarge.text.bold,
           ),
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
           Container(
             width: 195,
             child: Text(
@@ -42,9 +42,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
 
     Widget QuranImage() {
       return ImageCustom(
-        margin: EdgeInsets.symmetric(
-          horizontal: 30
-        ),
+        margin: EdgeInsets.symmetric(horizontal: 30),
         width: getWH(context, "width") - 60,
         height: 450,
         image: AssetImage(getIM("get-started-bg.png")),
@@ -59,7 +57,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               ),
               width: getWH(context, "width") - 84,
               image: AssetImage(getIM("img-quran.png")),
-            )
+            ),
           ],
         ),
       );
@@ -80,7 +78,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                 title: "Get Started",
                 onPressed: onGetStarted,
               ),
-            )
+            ),
           ],
         ),
       );

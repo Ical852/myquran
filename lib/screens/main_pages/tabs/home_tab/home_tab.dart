@@ -118,7 +118,7 @@ class _HomeTabState extends State<HomeTab> {
             HeaderContent(),
             LastRead(),
             SurahGap(),
-            SurahContent()
+            SurahContent(),
           ],
         ),
       ),

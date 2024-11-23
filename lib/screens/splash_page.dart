@@ -40,11 +40,11 @@ class _SplashPageState extends State<SplashPage> {
                   height: 120,
                   image: AssetImage(getIC("ic-logo.png")),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10),
                 Text(
                   "MyQuran",
                   style: mass.white.semiBold,
-                )
+                ),
               ],
             ),
           ),

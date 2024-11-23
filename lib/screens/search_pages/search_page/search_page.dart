@@ -29,8 +29,11 @@ class _SearchPageState extends State<SearchPage> {
         filteredSurahs = allSurahs;
       } else {
         filteredSurahs = allSurahs
-            .where((surah) => surah.namaLatin!.toLowerCase().contains(keyword.toLowerCase()))
-            .toList();
+          .where(
+            (surah) => surah.namaLatin!
+              .toLowerCase()
+              .contains(keyword.toLowerCase())
+          ).toList();
       }
     });
   }

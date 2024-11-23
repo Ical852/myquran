@@ -41,7 +41,7 @@ class LastRead extends StatelessWidget {
             Text(
               state.surah != null ? "Ayat No: ${state.currentIndex + 1}" : 'No Read Yet',
               style: regular.white.regularF,
-            )
+            ),
           ],
         ),
       );
@@ -75,7 +75,7 @@ class LastRead extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: LastReadContent(state),
                 ),
-              )
+              ),
             ],
           ),
         );

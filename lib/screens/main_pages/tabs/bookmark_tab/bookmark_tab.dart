@@ -6,7 +6,7 @@ import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/models/get_surah_response_model.dart' as surahModel;
 import 'package:myquran/screens/search_pages/search_bookmark_page/search_bookmark_page.dart';
 import 'package:myquran/screens/search_pages/search_page/search_page.dart';
-import 'package:myquran/widgets/bookmar_card.dart';
+import 'package:myquran/widgets/bookmark_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/functions/global_func.dart';
 
@@ -41,7 +41,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
           children: [
             BlocBuilder<BookmarkSurahCubit, List<surahModel.Data>>(
               builder: (context, state) {
-                return BookmarCard(
+                return BookmarkCard(
                   title: "Surah",
                   total: state.length,
                   onPress: (){
@@ -52,7 +52,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
             ),
             BlocBuilder<BookmarkAyatCubit, List<Ayat>>(
               builder: (context, state) {
-                return BookmarCard(
+                return BookmarkCard(
                   title: "Ayat",
                   total: state.length,
                   onPress: (){
@@ -70,7 +70,10 @@ class _BookmarkTabState extends State<BookmarkTab> {
       width: double.infinity,
       child: SingleChildScrollView(
         child: Column(
-          children: [HeaderContent(), BookmarkList()],
+          children: [
+            HeaderContent(),
+            BookmarkList(),
+          ],
         ),
       ),
     );

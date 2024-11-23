@@ -13,7 +13,7 @@ class MenuItemCustom extends StatelessWidget {
   MenuItemCustom({
     required this.icon,
     this.active = false,
-    required this.onPress
+    required this.onPress,
   });
 
   @override
@@ -30,7 +30,7 @@ class MenuItemCustom extends StatelessWidget {
         capitalize(icon),
         style: regular.copyWith(
           fontWeight: active ? fontSemiBold : fontRegular,
-          color: active ? primary : secondary
+          color: active ? primary : secondary,
         ),
       );
     }

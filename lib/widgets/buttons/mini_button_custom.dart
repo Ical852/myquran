@@ -20,7 +20,7 @@ class MiniButtonCustom extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: greenSec
+        color: greenSec,
       ),
       width: width ?? 200,
       height: height ?? 50,
@@ -32,7 +32,7 @@ class MiniButtonCustom extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           title,
-          style: medium.text.semiBold
+          style: medium.text.semiBold,
         ),
       ),
     );
