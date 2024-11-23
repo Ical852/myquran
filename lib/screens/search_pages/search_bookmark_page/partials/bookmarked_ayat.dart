@@ -8,8 +8,10 @@ import 'package:myquran/view_models/bookmark_page/ayat_bookmark_view_model.dart'
 import 'package:myquran/widgets/ayat_card/ayat_card.dart';
 import 'package:myquran/widgets/no_data.dart';
 
+// ignore: must_be_immutable
 class BookmarkedAyat extends StatefulWidget {
-  const BookmarkedAyat({super.key});
+  List<Ayat>? filteredAyat;
+  BookmarkedAyat(this.filteredAyat);
 
   @override
   State<BookmarkedAyat> createState() => _BookmarkedAyatState();
@@ -65,7 +67,8 @@ class _BookmarkedAyatState extends State<BookmarkedAyat> {
   Widget build(BuildContext context) {
     return BlocBuilder<BookmarkAyatCubit, List<Ayat>>(
       builder: (context, state) {
-        if (state.length < 1) {
+        var displayedAyat = widget.filteredAyat ?? state;
+        if (displayedAyat.length < 1) {
           return Container(
             margin: EdgeInsets.only(top: getWH(context, "height") / 8),
             child: NoData(
@@ -79,9 +82,9 @@ class _BookmarkedAyatState extends State<BookmarkedAyat> {
           child: ListView.builder(
             controller: _scrollController,
             shrinkWrap: true,
-            itemCount: state.length,
+            itemCount: displayedAyat.length,
             itemBuilder: (context, index) {
-              var ayat = state[index];
+              var ayat = displayedAyat[index];
               return AyatCard(
                 ayat: ayat,
                 currentPlay: currentPlay,

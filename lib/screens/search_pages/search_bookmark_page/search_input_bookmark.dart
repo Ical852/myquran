@@ -9,12 +9,14 @@ class SearcInputhBookmark extends StatelessWidget {
   TextEditingController searchController;
   Function() onBack;
   Function(String) onFieldSubmitted;
+  String placeholder;
 
   SearcInputhBookmark({
     super.key,
     required this.onBack,
     required this.searchController,
     required this.onFieldSubmitted,
+    this.placeholder = "Search quran"
   });
 
   @override
@@ -60,7 +62,7 @@ class SearcInputhBookmark extends StatelessWidget {
                   TextFormField(
                     controller: searchController,
                     decoration: InputDecoration(
-                      labelText: "Search quran",
+                      labelText: placeholder,
                       labelStyle: regular.grey.regularF,
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.only(right: 52, left: 16),

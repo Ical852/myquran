@@ -7,8 +7,10 @@ import 'package:myquran/screens/detail_pages/surah_detail_page/surah_detail_page
 import 'package:myquran/widgets/no_data.dart';
 import 'package:myquran/widgets/surah_card.dart';
 
+// ignore: must_be_immutable
 class BookmarkedSurah extends StatefulWidget {
-  const BookmarkedSurah({super.key});
+  List<Data>? filteredSurahs;
+  BookmarkedSurah(this.filteredSurahs);
 
   @override
   State<BookmarkedSurah> createState() => _BookmarkedSurahState();
@@ -19,7 +21,8 @@ class _BookmarkedSurahState extends State<BookmarkedSurah> {
   Widget build(BuildContext context) {
     return BlocBuilder<BookmarkSurahCubit, List<Data>>(
       builder: (context, state) {
-        if (state.length < 1) {
+        var displayedSurahs = widget.filteredSurahs ?? state;
+        if (displayedSurahs.length < 1) {
           return Container(
             margin: EdgeInsets.only(top: getWH(context, "height") / 8),
             child: NoData(
@@ -37,9 +40,9 @@ class _BookmarkedSurahState extends State<BookmarkedSurah> {
           ),
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: state.length,
+          itemCount: displayedSurahs.length,
           itemBuilder: (context, index) {
-            var surah = state[index];
+            var surah = displayedSurahs[index];
             return SurahCard(
               surah: surah,
               onPress: () {
