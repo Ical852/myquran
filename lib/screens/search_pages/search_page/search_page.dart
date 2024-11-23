@@ -8,6 +8,7 @@ import 'package:myquran/screens/search_pages/search_page/search_input.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/view_models/search_page/search_page_view_model.dart';
+import 'package:myquran/widgets/no_data.dart';
 import 'package:myquran/widgets/retry_fetch.dart';
 import 'package:myquran/widgets/surah_card.dart';
 
@@ -86,6 +87,16 @@ class _SearchPageState extends State<SearchPage> {
 
     Widget SurahList(GetSurahResponseModel surahs) {
       var displayedSurahs = filteredSurahs ?? surahs.data!;
+      if (displayedSurahs.length < 1) {
+        return Container(
+          margin: EdgeInsets.only(top: getWH(context, "height") / 8),
+          child: NoData(
+            title: "No Surah Found",
+            desc: "Seems like there is no surah match with the searched keyword, try another keyword",
+          ),
+        );
+      }
+
       return ListView.builder(
         padding: EdgeInsets.only(
           left: 16,

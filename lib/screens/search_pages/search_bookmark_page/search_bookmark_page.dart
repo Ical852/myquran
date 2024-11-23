@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myquran/functions/global_func.dart';
+import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_ayat.dart';
+import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_surah.dart';
 import 'package:myquran/screens/search_pages/search_bookmark_page/search_input_bookmark.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/widgets/title_desc.dart';
@@ -20,9 +22,11 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
   Widget build(BuildContext context) {
     Widget BookmarkHead() {
       return Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 20,
+        margin: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 20,
+          bottom: 8,
         ),
         child: Column(
           children: [
@@ -33,6 +37,11 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
           ],
         ),
       );
+    }
+
+    Widget BookmarkContent() {
+      if (widget.type == 'surah') return BookmarkedSurah();
+      return BookmarkedAyat();
     }
 
     return Scaffold(
@@ -46,11 +55,14 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
                 searchController: searchController,
                 onFieldSubmitted: (e){}
               ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    BookmarkHead(),
-                  ],
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      BookmarkHead(),
+                      BookmarkContent(),
+                    ],
+                  ),
                 ),
               ),
             ],

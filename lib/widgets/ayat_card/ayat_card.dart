@@ -11,7 +11,7 @@ class AyatCard extends StatefulWidget {
   String currentPlay, otherCurrentPlay, loading, otherLoading;
   Function(String) onPlay, playOther;
   Function() onBookmark, stopOther;
-  bool isBookmarked;
+  bool isBookmarked, isNotDetail;
 
   AyatCard({
     super.key,
@@ -25,6 +25,7 @@ class AyatCard extends StatefulWidget {
     required this.onBookmark,
     required this.stopOther,
     this.isBookmarked = false,
+    this.isNotDetail = false,
   });
 
   @override
@@ -52,7 +53,7 @@ class _AyatCardState extends State<AyatCard> {
             shrinkWrap: true,
             itemCount: audios.length,
             itemBuilder: (context, index) {
-              if (index == 0) {
+              if (!widget.isNotDetail && index == 0) {
                 return AudioCard(
                   audio: ayat.audio!.s01!,
                   current: currentPlay,
@@ -61,7 +62,7 @@ class _AyatCardState extends State<AyatCard> {
                     widget.onPlay(ayat.audio!.s01!);
                     widget.stopOther();
                   },
-                  isAuto: true,
+                  isAuto: !widget.isNotDetail,
                 );
               }
               return AudioCard(
@@ -91,8 +92,16 @@ class _AyatCardState extends State<AyatCard> {
           audioOpen: audioOpen,
           onAudio: () => setState(() => audioOpen = !audioOpen),
           onPlay: () {
-            widget.onPlay(ayat.audio!.s01!);
-            widget.stopOther();
+            if (!widget.isNotDetail) {
+              widget.onPlay(ayat.audio!.s01!);
+              widget.stopOther();
+            } else {
+              if (ayat.audio!.s01! == widget.otherCurrentPlay) {
+                widget.stopOther();
+              } else {
+                widget.playOther(ayat.audio!.s01!);
+              }
+            }
           },
           isLoading: loading == ayat.audio!.s01!,
           current: currentPlay,

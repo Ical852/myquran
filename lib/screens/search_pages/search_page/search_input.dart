@@ -60,7 +60,7 @@ class SearchInput extends StatelessWidget {
                   TextFormField(
                     controller: searchController,
                     decoration: InputDecoration(
-                      labelText: "Search quran",
+                      labelText: "Search surah",
                       labelStyle: regular.grey.regularF,
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.only(right: 52, left: 16),
