@@ -7,12 +7,16 @@ class MiniButtonCustom extends StatelessWidget {
   String title;
   double? width, height;
   Function() onPressed;
+  TextStyle? textStyle;
+  Color? btnColor;
 
   MiniButtonCustom({
     required this.title,
     required this.onPressed,
     this.width,
     this.height,
+    this.textStyle,
+    this.btnColor,
   });
 
   @override
@@ -20,19 +24,19 @@ class MiniButtonCustom extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: greenSec,
+        color: btnColor ?? greenSec,
       ),
       width: width ?? 200,
       height: height ?? 50,
       child: ElevatedButton(
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent.withOpacity(0.1),
         ),
-        onPressed: onPressed,
         child: Text(
           title,
-          style: medium.text.semiBold,
+          style: textStyle ?? medium.text.semiBold,
         ),
       ),
     );

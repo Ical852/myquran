@@ -6,9 +6,12 @@ import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/models/get_surah_response_model.dart' as surahModel;
 import 'package:myquran/screens/search_pages/search_bookmark_page/search_bookmark_page.dart';
 import 'package:myquran/screens/search_pages/search_page/search_page.dart';
+import 'package:myquran/shared/constants.dart';
+import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/widgets/bookmark_card.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/functions/global_func.dart';
+import 'package:myquran/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class BookmarkTab extends StatefulWidget {
@@ -30,6 +33,38 @@ class _BookmarkTabState extends State<BookmarkTab> {
           onRight: () => goToPage(context, SearchPage()),
           leftIcon: "ic-bar.png",
           onLeft: () => widget.openDrawer(),
+        ),
+      );
+    }
+
+    Widget BookmarkTitle() {
+      return Container(
+        child: Column(
+          children: [
+            ImageCustom(
+              height: 100,
+              width: double.infinity,
+              image: AssetImage(getIM("img-quran.png")),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                children: [
+                  Text(
+                    "Bookmarked Surah & Ayat",
+                    style: medium.prim.semiBold,
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 24),
+                    height: 2,
+                    width: double.infinity,
+                    color: primary,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -72,6 +107,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
         child: Column(
           children: [
             HeaderContent(),
+            BookmarkTitle(),
             BookmarkList(),
           ],
         ),

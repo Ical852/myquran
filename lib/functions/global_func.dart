@@ -37,6 +37,11 @@ String capitalize(String text) {
   return text[0].toUpperCase() + text.substring(1);
 }
 
+String cleanHTML(String input) {
+  final regex = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
+  return input.replaceAll(regex, '').trim();
+}
+
 String getIC(String icon) {
   return "assets/icons/$icon";
 }
