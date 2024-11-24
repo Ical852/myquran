@@ -16,7 +16,7 @@ class SearcInputhBookmark extends StatelessWidget {
     required this.onBack,
     required this.searchController,
     required this.onFieldSubmitted,
-    this.placeholder = "Search quran"
+    this.placeholder = "Search quran",
   });
 
   @override

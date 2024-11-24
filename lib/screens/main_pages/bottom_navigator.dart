@@ -29,7 +29,7 @@ class BottomNavigator extends StatelessWidget {
                 blurRadius: 9,
                 offset: Offset(0, 9),
               ),
-            ]
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

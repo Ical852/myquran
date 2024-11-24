@@ -5,7 +5,7 @@ import 'package:myquran/widgets/tafsir_ayat_card/partials/tafsir_ayat_action.dar
 import 'package:myquran/widgets/tafsir_ayat_card/partials/tafsir_ayat_content.dart';
 
 // ignore: must_be_immutable
-class TafsirAyatCard extends StatefulWidget {
+class TafsirAyatCard extends StatelessWidget {
   Ayat ayat;
   Tafsir tafsir;
   Function() onBookmark;
@@ -20,19 +20,7 @@ class TafsirAyatCard extends StatefulWidget {
   });
 
   @override
-  State<TafsirAyatCard> createState() => _TafsirAyatCardState();
-}
-
-class _TafsirAyatCardState extends State<TafsirAyatCard> {
-  var audioOpen = false;
-
-  @override
   Widget build(BuildContext context) {
-    var ayat = widget.ayat;
-    var tafsir = widget.tafsir;
-    var onBookmark = widget.onBookmark;
-    var isBookmarked = widget.isBookmarked;
-
     return Column(
       children: [
         TafsirAyatAction(
@@ -42,7 +30,7 @@ class _TafsirAyatCardState extends State<TafsirAyatCard> {
         ),
         TafsirAyatContent(
           ayat: ayat,
-          tafsir: tafsir
+          tafsir: tafsir,
         ),
       ],
     );

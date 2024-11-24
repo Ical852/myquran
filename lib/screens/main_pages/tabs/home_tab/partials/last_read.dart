@@ -29,7 +29,7 @@ class LastRead extends StatelessWidget {
                 Text(
                   "Last read",
                   style: regular.white.mediumF,
-                )
+                ),
               ],
             ),
             Spacer(),

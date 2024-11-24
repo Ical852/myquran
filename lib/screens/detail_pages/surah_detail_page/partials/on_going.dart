@@ -103,7 +103,7 @@ class OnGoing extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: OnGoingContent(),
           ),
-          SurahDesc()
+          SurahDesc(),
         ],
       ),
     );

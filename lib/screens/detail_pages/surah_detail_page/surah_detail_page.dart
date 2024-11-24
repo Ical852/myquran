@@ -107,7 +107,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
             margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
             child: HeaderCustom(
               rightIcon: "ic-bookmark${detailVM.surahBookmarked(surah) ? '-active' : ''}.png",
-              title: this.widget.surah.namaLatin ?? "-",
+              title: surah.namaLatin ?? "-",
               onRight: () {
                 setState(() {
                   detailVM.surahBookmark(surah);

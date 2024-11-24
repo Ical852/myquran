@@ -30,7 +30,7 @@ class TafsirAyatAction extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xff121931).withOpacity(0.05),
-        borderRadius: BorderRadius.circular(10)
+        borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(
         horizontal: 14,
@@ -46,7 +46,7 @@ class TafsirAyatAction extends StatelessWidget {
                 height: 27,
                 decoration: BoxDecoration(
                   color: primary,
-                  borderRadius: BorderRadius.circular(50)
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: Center(
                   child: Text(

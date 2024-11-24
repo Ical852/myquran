@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:myquran/models/get_surah_response_model.dart';
-
-part '../states/bookmark_surah_state.dart';
 
 class BookmarkSurahCubit extends Cubit<List<Data>> {
   BookmarkSurahCubit() : super([]);

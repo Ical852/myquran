@@ -33,16 +33,22 @@ class _DetailTafsirPageState extends State<DetailTafsirPage> {
 
   @override
   Widget build(BuildContext context) {
+    var surah = widget.surah;
+
     Widget HeaderContent(Data data) {
       return BlocConsumer<BookmarkTafsirCubit, List<TafsirModel>>(
         listener: (context, state) {},
         builder: (context, state) {
-          var newTafsir = TafsirModel(data, widget.surah);
+          var newTafsir = TafsirModel(data, surah);
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            margin: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 32,
+            ),
             child: HeaderCustom(
               rightIcon: "ic-bookmark${tafsirVM.tafsirBookmarked(newTafsir) ? '-active' : ''}.png",
-              title: "Tafsir ${this.widget.surah.namaLatin ?? "-"}",
+              title: "Tafsir ${surah.namaLatin ?? "-"}",
               onRight: () {
                 setState(() {
                   tafsirVM.tafsirBookmark(newTafsir);
@@ -62,9 +68,9 @@ class _DetailTafsirPageState extends State<DetailTafsirPage> {
             child: ListView.builder(
               controller: _scrollController,
               shrinkWrap: true,
-              itemCount: widget.surah.jumlahAyat,
+              itemCount: surah.jumlahAyat,
               itemBuilder: (context, index) {
-                var ayat = widget.surah.ayat![index];
+                var ayat = surah.ayat![index];
                 var tafsir = data.tafsir![index];
                 var bookmark = TafsirAyatModel(tafsir, ayat);
                 return TafsirAyatCard(
@@ -101,7 +107,7 @@ class _DetailTafsirPageState extends State<DetailTafsirPage> {
         child: Center(
           child: RetryFetch(
             title: "Failed to get detail surah data",
-            onRefetch: () => tafsirVM.getTafsirSurah(widget.surah.nomor!),
+            onRefetch: () => tafsirVM.getTafsirSurah(surah.nomor!),
           ),
         ),
       );

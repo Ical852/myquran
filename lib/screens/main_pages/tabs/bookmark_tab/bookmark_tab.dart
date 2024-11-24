@@ -53,7 +53,7 @@ class _BookmarkTabState extends State<BookmarkTab> {
               child: Column(
                 children: [
                   Text(
-                    "Bookmarked Surah & Ayat",
+                    "Bookmarked Surah, Ayat, Tafsir & Tafsir Ayat",
                     style: medium.prim.semiBold,
                   ),
                   SizedBox(height: 16),

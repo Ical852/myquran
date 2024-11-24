@@ -6,15 +6,15 @@ import 'package:myquran/models/get_surah_response_model.dart';
 class AudioPlayerCubit extends Cubit<AudioPlayerState> {
   final AudioPlayer _audioPlayer;
 
-  AudioPlayerCubit()
-      : _audioPlayer = AudioPlayer(),
-        super(AudioPlayerState(
-          currentPlay: "",
-          currentIndex: 0,
-          audioList: [],
-          playerState: PlayerState.stopped,
-          surah: null,
-        )) {
+  AudioPlayerCubit() : _audioPlayer = AudioPlayer(), super(
+    AudioPlayerState(
+      currentPlay: "",
+      currentIndex: 0,
+      audioList: [],
+      playerState: PlayerState.stopped,
+      surah: null,
+    )
+  ) {
     _audioPlayer.onPlayerStateChanged.listen((PlayerState playerState) {
       emit(state.copyWith(playerState: playerState));
     });

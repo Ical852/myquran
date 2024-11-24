@@ -27,7 +27,7 @@ class TitleDesc extends StatelessWidget {
                 Text(
                   desc,
                   style: small.grey.regularF,
-                )
+                ),
               ],
             ),
           ),

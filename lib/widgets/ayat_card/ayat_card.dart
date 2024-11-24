@@ -40,6 +40,14 @@ class _AyatCardState extends State<AyatCard> {
     var ayat = widget.ayat;
     String currentPlay = widget.currentPlay;
     String loading = widget.loading;
+    bool isNotDetail = widget.isNotDetail;
+    Function(String) onPlay = widget.onPlay;
+    Function() stopOther = widget.stopOther;
+    String otherCurrentPlay = widget.otherCurrentPlay;
+    String otherLoading = widget.otherLoading;
+    Function(String) playOther = widget.playOther;
+    Function() onBookmark = widget.onBookmark;
+    bool isBookmarked = widget.isBookmarked;
 
     // Other local player
     var audios = getAudio(ayat);
@@ -53,27 +61,27 @@ class _AyatCardState extends State<AyatCard> {
             shrinkWrap: true,
             itemCount: audios.length,
             itemBuilder: (context, index) {
-              if (!widget.isNotDetail && index == 0) {
+              if (!isNotDetail && index == 0) {
                 return AudioCard(
                   audio: ayat.audio!.s01!,
                   current: currentPlay,
                   isLoading: loading == ayat.audio!.s01!,
                   onPlay: () {
-                    widget.onPlay(ayat.audio!.s01!);
-                    widget.stopOther();
+                    onPlay(ayat.audio!.s01!);
+                    stopOther();
                   },
-                  isAuto: !widget.isNotDetail,
+                  isAuto: !isNotDetail,
                 );
               }
               return AudioCard(
                 audio: audios[index],
-                current: widget.otherCurrentPlay,
-                isLoading: widget.otherLoading == audios[index],
+                current: otherCurrentPlay,
+                isLoading: otherLoading == audios[index],
                 onPlay: () {
-                  if (audios[index] == widget.otherCurrentPlay) {
-                    widget.stopOther();
+                  if (audios[index] == otherCurrentPlay) {
+                    stopOther();
                   } else {
-                    widget.playOther(audios[index]);
+                    playOther(audios[index]);
                   }
                 },
               ); 
@@ -92,22 +100,22 @@ class _AyatCardState extends State<AyatCard> {
           audioOpen: audioOpen,
           onAudio: () => setState(() => audioOpen = !audioOpen),
           onPlay: () {
-            if (!widget.isNotDetail) {
-              widget.onPlay(ayat.audio!.s01!);
-              widget.stopOther();
+            if (!isNotDetail) {
+              onPlay(ayat.audio!.s01!);
+              stopOther();
             } else {
-              if (ayat.audio!.s01! == widget.otherCurrentPlay) {
-                widget.stopOther();
+              if (ayat.audio!.s01! == otherCurrentPlay) {
+                stopOther();
               } else {
-                widget.playOther(ayat.audio!.s01!);
+                playOther(ayat.audio!.s01!);
               }
             }
           },
           isLoading: loading == ayat.audio!.s01!,
           current: currentPlay,
           audio: ayat.audio!.s01!,
-          onBookmark: widget.onBookmark,
-          isBookmarked: widget.isBookmarked,
+          onBookmark: onBookmark,
+          isBookmarked: isBookmarked,
         ),
         AyatContent(ayat: ayat),
       ],

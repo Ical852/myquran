@@ -44,7 +44,7 @@ class AudioCard extends StatelessWidget {
                 color: primary,
               ),
             ) :
-            RenderIcon("ic-ayat-${isCurrent ? "pause" : "played"}.png")
+            RenderIcon("ic-ayat-${isCurrent ? "pause" : "played"}.png"),
           ),
           SizedBox(width: 8),
           Text(
