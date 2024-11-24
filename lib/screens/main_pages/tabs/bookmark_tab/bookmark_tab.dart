@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_surah_cubit.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir_ayat_cubit.dart';
 import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/models/get_surah_response_model.dart' as surahModel;
 import 'package:myquran/screens/search_pages/search_bookmark_page/search_bookmark_page.dart';
@@ -92,6 +94,28 @@ class _BookmarkTabState extends State<BookmarkTab> {
                   total: state.length,
                   onPress: (){
                     goToPage(context, SearchBookmarkPage("ayat"));
+                  },
+                );
+              },
+            ),
+            BlocBuilder<BookmarkTafsirCubit, List<TafsirModel>>(
+              builder: (context, state) {
+                return BookmarkCard(
+                  title: "Tafsir Surah",
+                  total: state.length,
+                  onPress: () {
+                    goToPage(context, SearchBookmarkPage("tafsir"));
+                  },
+                );
+              },
+            ),
+            BlocBuilder<BookmarkTafsirAyatCubit, List<TafsirAyatModel>>(
+              builder: (context, state) {
+                return BookmarkCard(
+                  title: "Tafsir Ayat",
+                  total: state.length,
+                  onPress: () {
+                    goToPage(context, SearchBookmarkPage("tafsir ayat"));
                   },
                 );
               },

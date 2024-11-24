@@ -11,7 +11,7 @@ import 'package:myquran/shared/constants.dart';
 import 'package:myquran/view_models/main_page/home_view_model.dart';
 import 'package:myquran/widgets/header_custom.dart';
 import 'package:myquran/widgets/retry_fetch.dart';
-import 'package:myquran/widgets/surah_card.dart';
+import 'package:myquran/widgets/surah_card/surah_card.dart';
 
 // ignore: must_be_immutable
 class HomeTab extends StatefulWidget {

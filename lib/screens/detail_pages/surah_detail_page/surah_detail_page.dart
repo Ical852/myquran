@@ -186,7 +186,7 @@ class _SurahDetailPageState extends State<SurahDetailPage> {
         child: Column(
           children: [
             HeaderContent(),
-            OnGoing(surah: surah),
+            OnGoing(surah: response.data!),
             AyatList(response.data!),
           ],
         ),

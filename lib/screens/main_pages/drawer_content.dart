@@ -54,6 +54,22 @@ class DrawerContent extends StatelessWidget {
               closeDrawer();
             },
           ),
+          NavItem(
+            title: "Bookmarked Tafsir",
+            icon: "ic-quran-num.png",
+            onPress: () {
+              goToPage(context, SearchBookmarkPage("tafsir"));
+              closeDrawer();
+            },
+          ),
+          NavItem(
+            title: "Bookmarked Tafsir Ayat",
+            icon: "ic-ayat-bookmarked.png",
+            onPress: () {
+              goToPage(context, SearchBookmarkPage("tafsir ayat"));
+              closeDrawer();
+            },
+          ),
         ],
       ),
     );

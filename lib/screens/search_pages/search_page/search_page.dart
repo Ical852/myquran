@@ -10,7 +10,7 @@ import 'package:myquran/shared/text_styles.dart';
 import 'package:myquran/view_models/search_page/search_page_view_model.dart';
 import 'package:myquran/widgets/no_data.dart';
 import 'package:myquran/widgets/retry_fetch.dart';
-import 'package:myquran/widgets/surah_card.dart';
+import 'package:myquran/widgets/surah_card/surah_card.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

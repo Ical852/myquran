@@ -73,7 +73,7 @@ class _BookmarkedAyatState extends State<BookmarkedAyat> {
             margin: EdgeInsets.only(top: getWH(context, "height") / 8),
             child: NoData(
               title: "No Bookmarked Ayat",
-              desc: "Seems like you haven’t bookmarked any ayat yet, go bookmark a ayat.",
+              desc: "Seems like you haven’t bookmarked any ayat yet, go bookmark an ayat.",
             ),
           );
         }

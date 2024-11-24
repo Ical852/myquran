@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myquran/blocs/cubits/audio_player_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_surah_cubit.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/get_detail_surah_cubit.dart';
 import 'package:myquran/blocs/cubits/get_surah_cubit.dart';
 import 'package:myquran/blocs/cubits/get_tafsir_surah_cubit.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => GetTafsirSurahCubit()),
         BlocProvider(create: (context) => BookmarkSurahCubit()),
         BlocProvider(create: (context) => BookmarkAyatCubit()),
+        BlocProvider(create: (context) => BookmarkTafsirCubit()),
+        BlocProvider(create: (context) => BookmarkTafsirAyatCubit()),
         BlocProvider(create: (context) => AudioPlayerCubit()),
       ],
       child: MaterialApp(

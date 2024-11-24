@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myquran/functions/global_func.dart';
-import 'package:myquran/models/get_surah_response_model.dart';
+import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/screens/detail_pages/detail_tafsir_page/detail_tafsir_page.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myquran/blocs/cubits/bookmark_ayat_cubit.dart';
 import 'package:myquran/blocs/cubits/bookmark_surah_cubit.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir.dart';
+import 'package:myquran/blocs/cubits/bookmark_tafsir_ayat_cubit.dart';
 import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/models/get_surah_response_model.dart' as surahModel;
 import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_ayat.dart';
 import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_surah.dart';
+import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_tafsir.dart';
+import 'package:myquran/screens/search_pages/search_bookmark_page/partials/bookmarked_tafsir_ayat.dart';
 import 'package:myquran/screens/search_pages/search_bookmark_page/search_input_bookmark.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/widgets/title_desc.dart';
@@ -23,7 +27,9 @@ class SearchBookmarkPage extends StatefulWidget {
 class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
   TextEditingController searchController = TextEditingController(text: "");
   List<surahModel.Data>? filteredSurahs;
+  List<TafsirModel>? filteredTafsir;
   List<Ayat>? filteredAyat;
+  List<TafsirAyatModel>? filteredTafsirAyat;
 
   void filterSurahs(String keyword, List<surahModel.Data> allSurahs) {
     setState(() {
@@ -62,6 +68,46 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
     });
   }
 
+  void filterTafsir(String keyword, List<TafsirModel> tafsirs) {
+    setState(() {
+      if (keyword.isEmpty) {
+        filteredTafsir = tafsirs;
+      } else {
+        filteredTafsir = tafsirs
+          .where(
+            (tsfm) => tsfm.surah!.namaLatin!
+              .toLowerCase()
+              .contains(keyword.toLowerCase())
+          ).toList();
+      }
+    });
+  }
+
+  void filterTafsirAyat(String keyword, List<TafsirAyatModel> allTafsirAyat) {
+    setState(() {
+      if (keyword.isEmpty) {
+        filteredTafsirAyat = allTafsirAyat;
+      } else {
+        filteredTafsirAyat = allTafsirAyat
+          .where(
+            (tsfam) => 
+              tsfam.ayat.teksIndonesia!
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) ||
+              tsfam.ayat.teksLatin!
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) ||
+              tsfam.ayat.teksArab!
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) ||
+              tsfam.tafsir.teks!
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) 
+          ).toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget BookmarkHead() {
@@ -84,8 +130,16 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
     }
 
     Widget BookmarkContent() {
-      if (widget.type == 'surah') return BookmarkedSurah(filteredSurahs);
-      return BookmarkedAyat(filteredAyat);
+      switch (widget.type) {
+        case 'surah':
+          return BookmarkedSurah(filteredSurahs);
+        case 'tafsir':
+          return BookmarkedTafsir(filteredTafsir);
+        case 'tafsir ayat':
+          return BookmarkedTafsirAyat(filteredTafsirAyat);
+        default:
+          return BookmarkedAyat(filteredAyat);
+      }
     }
 
     return Scaffold(
@@ -99,12 +153,19 @@ class _SearchBookmarkPageState extends State<SearchBookmarkPage> {
                 onBack: () => Navigator.pop(context),
                 searchController: searchController,
                 onFieldSubmitted: (keyword){
-                  if (widget.type == 'surah') {
-                    final surahs = context.read<BookmarkSurahCubit>().state;
-                    filterSurahs(keyword, surahs);
-                  } else {
-                    final ayat = context.read<BookmarkAyatCubit>().state;
-                    filterAyat(keyword, ayat);
+                  switch (widget.type) {
+                    case 'surah':
+                      final surahs = context.read<BookmarkSurahCubit>().state;
+                      return filterSurahs(keyword, surahs);
+                    case 'tafsir':
+                      final tafsirs = context.read<BookmarkTafsirCubit>().state;
+                      return filterTafsir(keyword, tafsirs);
+                    case 'tafsir ayat':
+                      final tafsirAyats = context.read<BookmarkTafsirAyatCubit>().state;
+                      return filterTafsirAyat(keyword, tafsirAyats);
+                    default:
+                      final ayat = context.read<BookmarkAyatCubit>().state;
+                      return filterAyat(keyword, ayat);
                   }
                 }
               ),

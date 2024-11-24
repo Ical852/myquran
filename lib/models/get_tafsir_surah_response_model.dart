@@ -38,8 +38,6 @@ class Data {
   String? deskripsi;
   AudioFull? audioFull;
   List<Tafsir>? tafsir;
-  SuratSelanjutnya? suratSelanjutnya;
-  bool? suratSebelumnya;
 
   Data({
     this.nomor,
@@ -51,8 +49,6 @@ class Data {
     this.deskripsi,
     this.audioFull,
     this.tafsir,
-    this.suratSelanjutnya,
-    this.suratSebelumnya
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -72,10 +68,6 @@ class Data {
         tafsir!.add(new Tafsir.fromJson(v));
       });
     }
-    suratSelanjutnya = isNotNull(json['suratSelanjutnya'])
-      ? new SuratSelanjutnya.fromJson(json['suratSelanjutnya'])
-      : null;
-    suratSebelumnya = json['suratSebelumnya'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,10 +85,6 @@ class Data {
     if (isNotNull(this.tafsir)) {
       data['tafsir'] = this.tafsir!.map((v) => v.toJson()).toList();
     }
-    if (isNotNull(this.suratSelanjutnya)) {
-      data['suratSelanjutnya'] = this.suratSelanjutnya!.toJson();
-    }
-    data['suratSebelumnya'] = this.suratSebelumnya;
     return data;
   }
 }
@@ -150,36 +138,6 @@ class Tafsir {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['ayat'] = this.ayat;
     data['teks'] = this.teks;
-    return data;
-  }
-}
-
-class SuratSelanjutnya {
-  int? nomor;
-  String? nama;
-  String? namaLatin;
-  int? jumlahAyat;
-
-  SuratSelanjutnya({
-    this.nomor,
-    this.nama,
-    this.namaLatin,
-    this.jumlahAyat
-  });
-
-  SuratSelanjutnya.fromJson(Map<String, dynamic> json) {
-    nomor = json['nomor'];
-    nama = json['nama'];
-    namaLatin = json['namaLatin'];
-    jumlahAyat = json['jumlahAyat'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nomor'] = this.nomor;
-    data['nama'] = this.nama;
-    data['namaLatin'] = this.namaLatin;
-    data['jumlahAyat'] = this.jumlahAyat;
     return data;
   }
 }

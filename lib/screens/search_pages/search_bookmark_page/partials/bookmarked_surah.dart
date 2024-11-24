@@ -5,7 +5,7 @@ import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/models/get_surah_response_model.dart';
 import 'package:myquran/screens/detail_pages/surah_detail_page/surah_detail_page.dart';
 import 'package:myquran/widgets/no_data.dart';
-import 'package:myquran/widgets/surah_card.dart';
+import 'package:myquran/widgets/surah_card/surah_card.dart';
 
 // ignore: must_be_immutable
 class BookmarkedSurah extends StatefulWidget {
