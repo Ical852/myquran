@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myquran/blocs/cubits/page_cubit.dart';
 import 'package:myquran/models/get_detail_surah_response_model.dart';
 import 'package:myquran/shared/constants.dart';
 import 'package:myquran/shared/text_styles.dart';
@@ -173,6 +175,10 @@ void goToPage(BuildContext context, route) {
       builder: (context) => route
     ),
   );
+}
+
+void changeTab(BuildContext context, page) {
+  return context.read<PageCubit>().setNewPage(page);
 }
 
 void navReplace(BuildContext context, String path) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myquran/blocs/cubits/page_cubit.dart';
+import 'package:myquran/functions/global_func.dart';
 import 'package:myquran/screens/main_pages/bottom_navigator.dart';
 import 'package:myquran/screens/main_pages/drawer_content.dart';
 import 'package:myquran/screens/main_pages/tabs/bookmark_tab/bookmark_tab.dart';
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
         alignment: Alignment.bottomCenter,
         child: BottomNavigator(
           currentPage: state,
-          onPress: (page) => context.read<PageCubit>().setNewPage(page),
+          onPress: (page) => changeTab(context, page),
         ),
       );
     }
@@ -44,7 +45,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: white,
       key: globalKey,
       drawer: Drawer(
-        child: DrawerContent(),
+        child: DrawerContent(closeDrawer),
       ),
       body: SafeArea(
         child: BlocConsumer<PageCubit, String>(
